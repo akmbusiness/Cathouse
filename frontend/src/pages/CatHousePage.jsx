@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
-import { Phone, MapPin, Star, Scissors, ShoppingBag, Cat, Truck, MessageCircle, Menu } from "lucide-react";
+import { Phone, MapPin, Star, Scissors, ShoppingBag, Cat, Dog, Bird, Truck, MessageCircle, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,29 +15,41 @@ const galleryImages = [
   "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/n9ii2f6p_Screenshot%202026-03-09%20052359.png",
   "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/m1dpqm7a_Screenshot%202026-03-09%20052404.png",
   "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/2lvqgpqv_Screenshot%202026-03-09%20052352.png",
-  "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/7oyzowy1_Screenshot%202026-03-09%20052418.png",
+  "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/ndov26ka_Screenshot%202026-03-09%20052544.png",
+  "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/pwn1g019_Screenshot%202026-03-09%20052605.png",
+  "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/6wc4tdc9_Screenshot%202026-03-09%20052418.png",
   "https://images.unsplash.com/photo-1725419876939-f8f9987cf0d2?crop=entropy&cs=srgb&fm=jpg&ixlib=rb-4.1.0&q=85",
-  "https://images.unsplash.com/photo-1722336131103-cfaa6461e8d6?crop=entropy&cs=srgb&fm=jpg&ixlib=rb-4.1.0&q=85",
   "https://images.unsplash.com/photo-1551178092-d341b7a63ae3?crop=entropy&cs=srgb&fm=jpg&ixlib=rb-4.1.0&q=85",
-  "https://images.unsplash.com/photo-1761618843734-ffd54d9c493b?crop=entropy&cs=srgb&fm=jpg&ixlib=rb-4.1.0&q=85",
 ];
 
 const serviceItems = [
   {
-    title: "Cat Sales",
+    title: "Cat Care & Sales",
     text: "Healthy, well cared-for cats ready to become loving companions.",
     icon: Cat,
     testId: "service-cat-sales-card",
   },
   {
+    title: "Dog Care & Essentials",
+    text: "Trusted dog food, care products, and everyday wellness essentials.",
+    icon: Dog,
+    testId: "service-dog-care-card",
+  },
+  {
+    title: "Bird Care",
+    text: "Bird care products, nutrition, and accessories for happy healthy birds.",
+    icon: Bird,
+    testId: "service-bird-care-card",
+  },
+  {
     title: "Grooming",
-    text: "Professional cat grooming with bathing, coat care, and hygiene support.",
+    text: "Professional grooming with bathing, coat care, and hygiene support.",
     icon: Scissors,
     testId: "service-grooming-card",
   },
   {
     title: "Pet Supplies",
-    text: "Premium food, toys, litter, and daily essentials for your cat.",
+    text: "Premium food, toys, litter, and daily essentials for cats, dogs, and birds.",
     icon: ShoppingBag,
     testId: "service-pet-supplies-card",
   },
@@ -83,9 +95,9 @@ export default function CatHousePage() {
 
     ensureMetaTag(
       "description",
-      "Cat House in Riyadh offers premium cats, grooming, and pet supplies with 4.8-star trusted service.",
+      "Cat House in Riyadh offers complete care for cats, dogs, and birds with grooming and premium pet supplies.",
     );
-    ensureMetaTag("keywords", "Cat store Riyadh, Cat grooming Riyadh, Pet shop Riyadh, Buy cats Riyadh");
+    ensureMetaTag("keywords", "Cat store Riyadh, Dog supplies Riyadh, Bird care Riyadh, Pet shop Riyadh, Cat grooming Riyadh");
 
     const preconnectUrls = ["https://images.unsplash.com", "https://customer-assets.emergentagent.com"];
     preconnectUrls.forEach((url) => {
@@ -195,8 +207,16 @@ export default function CatHousePage() {
             <span className="block text-[#a27125]">Cat Store</span>
           </h1>
           <p className="mt-5 max-w-xl text-base text-[#3c3c3c] md:text-lg" data-testid="hero-subheading">
-            Premium cats, grooming, and supplies — all in one place. Discover a clean, professional, and warm experience for cat lovers in Riyadh.
+            Complete animal care is available for Cats, Dogs, and Birds — plus grooming and premium supplies in one trusted place in Riyadh.
           </p>
+
+          <div
+            className="mt-4 inline-flex flex-wrap items-center gap-2 rounded-2xl border border-[#a27125]/20 bg-[#fff7e8] px-4 py-2"
+            data-testid="hero-all-animal-care-badge"
+          >
+            <span className="text-xs font-bold tracking-wide text-[#a27125]">ALL ANIMAL CARE:</span>
+            <span className="text-xs font-semibold" data-testid="hero-all-animal-care-list">Cats • Dogs • Birds</span>
+          </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-3" data-testid="hero-cta-group">
             <a href="#location" data-testid="hero-visit-store-link">
@@ -231,12 +251,12 @@ export default function CatHousePage() {
         <div className="rounded-[2rem] border border-black/10 bg-white/80 p-8 shadow-sm lg:p-12" data-testid="about-card">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#a27125]" data-testid="about-kicker">About Cat House</p>
           <h2 className="mt-3 text-base font-medium text-[#2f2f2f] md:text-lg" data-testid="about-title">
-            A trusted home for cats and cat lovers in Riyadh.
+            A trusted care center for cats, dogs, and birds in Riyadh.
           </h2>
           <p className="mt-4 max-w-4xl text-sm text-[#4c4c4c] md:text-base" data-testid="about-description">
-            At Cat House (منزل القط), we combine passion for cats with expert care. Our knowledgeable team helps every customer find the right companion,
-            grooming service, and daily essentials in a clean and welcoming environment. With a 4.8-star customer rating, families across Riyadh trust us
-            for quality, professionalism, and kindness.
+            At Cat House (منزل القط), we combine passion with expert care for Cats, Dogs, and Birds. Our knowledgeable team helps every customer with
+            companions, grooming, and daily essentials in a clean and welcoming environment. With a 4.8-star customer rating, families across Riyadh trust
+            us for quality, professionalism, and kindness.
           </p>
         </div>
       </section>
@@ -244,7 +264,7 @@ export default function CatHousePage() {
       <section id="services" className="defer-render mx-auto w-[92%] max-w-7xl py-10 lg:py-14" data-testid="services-section">
         <div className="mb-7" data-testid="services-header">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#a27125]" data-testid="services-kicker">Services</p>
-          <h2 className="mt-2 text-base font-medium md:text-lg" data-testid="services-title">Everything your cat needs, in one premium store.</h2>
+          <h2 className="mt-2 text-base font-medium md:text-lg" data-testid="services-title">Complete care for Cats, Dogs, and Birds in one premium store.</h2>
         </div>
         <div className="grid gap-5 md:grid-cols-2" data-testid="services-grid">
           {serviceItems.map((item) => {
@@ -292,7 +312,7 @@ export default function CatHousePage() {
       <section id="gallery" className="defer-render mx-auto w-[92%] max-w-7xl py-10 lg:py-14" data-testid="gallery-section">
         <div className="mb-7" data-testid="gallery-header">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#a27125]" data-testid="gallery-kicker">Gallery</p>
-          <h2 className="mt-2 text-base font-medium md:text-lg" data-testid="gallery-title">Cats, grooming moments, store vibes, and quality products.</h2>
+          <h2 className="mt-2 text-base font-medium md:text-lg" data-testid="gallery-title">Cats, dogs, birds, grooming moments, and quality products.</h2>
         </div>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4" data-testid="gallery-grid">
           {galleryImages.map((imageUrl, index) => (

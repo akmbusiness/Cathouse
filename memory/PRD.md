@@ -9,6 +9,7 @@ Build a modern, premium, visually stunning main website for Cat House in Riyadh 
 - Brand assets: user provided real logo and real photos
 - Contact form behavior: save inquiries in backend database
 - Additional request: continue and optimize for fast loading
+- Latest content request: explicitly mention all animal care availability for Cats, Dogs, and Birds
 
 ## Architecture Decisions
 - Frontend: React + existing Shadcn UI components + responsive single-page sections with anchor navigation
@@ -22,6 +23,7 @@ Build a modern, premium, visually stunning main website for Cat House in Riyadh 
 - Sticky navigation with desktop links and mobile menu
 - CTA actions: Visit store, Call store, Get directions, floating WhatsApp button
 - User logo and uploaded photos integrated into hero/gallery
+- Updated website messaging and services to clearly state complete care for Cats, Dogs, and Birds
 - Contact form integrated to backend persistence with success/failure toasts
 - Backend contact inquiry models + endpoints with Mongo-safe responses (no `_id` leakage)
 - Styling system updated for warm premium aesthetic, smooth motion, and responsive layout
