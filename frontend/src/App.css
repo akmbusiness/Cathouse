@@ -1,0 +1,62 @@
+.app-shell {
+    min-height: 100vh;
+}
+
+.cat-gradient-bg {
+    background:
+        radial-gradient(circle at 12% 18%, rgba(212, 162, 79, 0.24), transparent 38%),
+        radial-gradient(circle at 88% 10%, rgba(36, 36, 36, 0.1), transparent 34%),
+        linear-gradient(180deg, #fffefb 0%, #f8f2e8 100%);
+}
+
+.soft-glass {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(22, 22, 22, 0.08);
+}
+
+.slide-fade-up {
+    animation: slideFadeUp 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.slide-fade-up-delay {
+    animation: slideFadeUp 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: 130ms;
+}
+
+.section-reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: sectionReveal 640ms ease forwards;
+}
+
+.defer-render {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 520px;
+}
+
+.section-reveal:nth-child(2) {
+    animation-delay: 110ms;
+}
+
+.section-reveal:nth-child(3) {
+    animation-delay: 180ms;
+}
+
+@keyframes slideFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes sectionReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
