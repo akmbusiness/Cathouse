@@ -1,87 +1,72 @@
-import { useEffect, useMemo, useState } from "react";
-import axios from "axios";
-import { Phone, MapPin, Star, Scissors, ShoppingBag, Cat, Dog, Bird, Truck, MessageCircle, Menu } from "lucide-react";
+import { useEffect } from "react";
+import { Phone, MapPin, Star, Scissors, ShoppingBag, Cat, Dog, Bird, ShieldCheck, Sparkles, HeartHandshake, MessageCircle, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { toast } from "@/components/ui/sonner";
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
 
 const logoUrl = "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/cc0iozg8_Screenshot%202026-03-09%20045907.png";
-const galleryImages = [
-  "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/n9ii2f6p_Screenshot%202026-03-09%20052359.png",
+const uploadedImages = [
+  "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/cxrex4eg_Screenshot%202026-03-09%20052533.png",
+  "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/alnmmhnp_Screenshot%202026-03-09%20052538.png",
+  "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/2cmno9rl_Screenshot%202026-03-09%20052551.png",
+  "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/7ea3ace3_Screenshot%202026-03-09%20052544.png",
+  "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/7oyzowy1_Screenshot%202026-03-09%20052418.png",
   "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/m1dpqm7a_Screenshot%202026-03-09%20052404.png",
+  "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/n9ii2f6p_Screenshot%202026-03-09%20052359.png",
   "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/2lvqgpqv_Screenshot%202026-03-09%20052352.png",
+  "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/6wc4tdc9_Screenshot%202026-03-09%20052418.png",
   "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/ndov26ka_Screenshot%202026-03-09%20052544.png",
   "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/pwn1g019_Screenshot%202026-03-09%20052605.png",
-  "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/6wc4tdc9_Screenshot%202026-03-09%20052418.png",
-  "https://images.unsplash.com/photo-1725419876939-f8f9987cf0d2?crop=entropy&cs=srgb&fm=jpg&ixlib=rb-4.1.0&q=85",
-  "https://images.unsplash.com/photo-1551178092-d341b7a63ae3?crop=entropy&cs=srgb&fm=jpg&ixlib=rb-4.1.0&q=85",
 ];
 
 const serviceItems = [
   {
-    title: "Cat Care & Sales",
-    text: "Healthy, well cared-for cats ready to become loving companions.",
-    icon: Cat,
-    testId: "service-cat-sales-card",
-  },
-  {
-    title: "Dog Care & Essentials",
-    text: "Trusted dog food, care products, and everyday wellness essentials.",
-    icon: Dog,
-    testId: "service-dog-care-card",
-  },
-  {
-    title: "Bird Care",
-    text: "Bird care products, nutrition, and accessories for happy healthy birds.",
-    icon: Bird,
-    testId: "service-bird-care-card",
-  },
-  {
-    title: "Grooming",
-    text: "Professional grooming with bathing, coat care, and hygiene support.",
+    title: "Pet Bath & Grooming",
+    text: "Clean and safe bath service with gentle grooming care for pets.",
     icon: Scissors,
-    testId: "service-grooming-card",
+    testId: "service-bath-grooming-card",
   },
   {
-    title: "Pet Supplies",
-    text: "Premium food, toys, litter, and daily essentials for cats, dogs, and birds.",
+    title: "Premium Pet Food",
+    text: "Balanced nutrition options for cats, dogs, and birds.",
     icon: ShoppingBag,
-    testId: "service-pet-supplies-card",
+    testId: "service-premium-food-card",
   },
   {
-    title: "Delivery",
-    text: "Convenient and fast delivery options across Riyadh.",
-    icon: Truck,
-    testId: "service-delivery-card",
+    title: "Pet Toys & Accessories",
+    text: "Fun toys and essential accessories to keep pets active and happy.",
+    icon: Sparkles,
+    testId: "service-toys-accessories-card",
   },
 ];
 
-const testimonials = [
-  "Good and affordable cats. Polite workers and good behaviour.",
-  "Friendly and knowledgeable staff, clean store, great grooming services.",
-  "Accessible location, accommodating crew, very clean shop.",
+const productItems = [
+  { title: "Dog Food", image: "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/ndov26ka_Screenshot%202026-03-09%20052544.png" },
+  { title: "Cat Food", image: "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/n9ii2f6p_Screenshot%202026-03-09%20052359.png" },
+  { title: "Bird Supplies", image: "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/6wc4tdc9_Screenshot%202026-03-09%20052418.png" },
+  { title: "Pet Litter", image: "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/pwn1g019_Screenshot%202026-03-09%20052605.png" },
+  { title: "Pet Toys", image: "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/cxrex4eg_Screenshot%202026-03-09%20052533.png" },
+  { title: "Pet Equipment", image: "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/2lvqgpqv_Screenshot%202026-03-09%20052352.png" },
+];
+
+const whyChooseUs = [
+  { title: "High Quality Pet Products", icon: ShieldCheck, testId: "why-quality-point" },
+  { title: "Friendly Service", icon: HeartHandshake, testId: "why-friendly-point" },
+  { title: "Clean and Safe Pet Bath", icon: Scissors, testId: "why-clean-bath-point" },
+  { title: "Trusted by Local Pet Owners", icon: Star, testId: "why-trusted-point" },
 ];
 
 const navItems = [
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
-  { label: "Reviews", href: "#reviews" },
+  { label: "Products", href: "#products" },
+  { label: "Why Choose Us", href: "#why-choose-us" },
   { label: "Gallery", href: "#gallery" },
-  { label: "Location", href: "#location" },
   { label: "Contact", href: "#contact" },
 ];
 
 export default function CatHousePage() {
-  const [formData, setFormData] = useState({ name: "", phone: "", message: "" });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   useEffect(() => {
-    document.title = "Cat House (منزل القط) | Premium Cat Store in Riyadh";
+    document.title = "Cat House | Modern Pet Store in Riyadh";
 
     const ensureMetaTag = (name, content) => {
       let tag = document.querySelector(`meta[name='${name}']`);
@@ -95,9 +80,9 @@ export default function CatHousePage() {
 
     ensureMetaTag(
       "description",
-      "Cat House in Riyadh offers complete care for cats, dogs, and birds with grooming and premium pet supplies.",
+      "Cat House is your local pet paradise for cats, dogs, and birds with pet bath, premium food, toys, and pet equipment.",
     );
-    ensureMetaTag("keywords", "Cat store Riyadh, Dog supplies Riyadh, Bird care Riyadh, Pet shop Riyadh, Cat grooming Riyadh");
+    ensureMetaTag("keywords", "Cat House Riyadh, pet bath Riyadh, cat dog bird store, premium pet food Riyadh, pet toys and equipment");
 
     const preconnectUrls = ["https://images.unsplash.com", "https://customer-assets.emergentagent.com"];
     preconnectUrls.forEach((url) => {
@@ -111,33 +96,6 @@ export default function CatHousePage() {
       }
     });
   }, []);
-
-  const heroImage = useMemo(() => galleryImages[0], []);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!formData.name || !formData.phone || !formData.message) {
-      toast.error("Please complete all fields before submitting.");
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      await axios.post(`${API}/contact-inquiries`, formData);
-      toast.success("Thanks! Your inquiry was sent successfully.");
-      setFormData({ name: "", phone: "", message: "" });
-    } catch (error) {
-      toast.error("Sorry, we couldn't submit right now. Please call us directly.");
-      console.error(error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <main className="cat-gradient-bg min-h-screen text-[#151515]" data-testid="cat-house-main-page">
@@ -203,46 +161,45 @@ export default function CatHousePage() {
             <Star className="h-3.5 w-3.5 fill-[#d7a64f] text-[#d7a64f]" /> 4.8 ⭐ (40 Reviews)
           </div>
           <h1 className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl" data-testid="hero-heading">
-            Riyadh&apos;s Favorite
-            <span className="block text-[#a27125]">Cat Store</span>
+            Welcome to Cat House —
+            <span className="block text-[#a27125]">Your Local Pet Paradise</span>
           </h1>
           <p className="mt-5 max-w-xl text-base text-[#3c3c3c] md:text-lg" data-testid="hero-subheading">
-            Complete animal care is available for Cats, Dogs, and Birds — plus grooming and premium supplies in one trusted place in Riyadh.
+            Everything your pets need in one place.
           </p>
 
-          <div
-            className="mt-4 inline-flex flex-wrap items-center gap-2 rounded-2xl border border-[#a27125]/20 bg-[#fff7e8] px-4 py-2"
-            data-testid="hero-all-animal-care-badge"
-          >
-            <span className="text-xs font-bold tracking-wide text-[#a27125]">ALL ANIMAL CARE:</span>
-            <span className="text-xs font-semibold" data-testid="hero-all-animal-care-list">Cats • Dogs • Birds</span>
+          <div className="mt-4 inline-flex flex-wrap items-center gap-2 rounded-2xl border border-[#d0832b]/25 bg-[#fff2df] px-4 py-2" data-testid="hero-animal-pill">
+            <Cat className="h-4 w-4 text-[#d0832b]" />
+            <Dog className="h-4 w-4 text-[#d0832b]" />
+            <Bird className="h-4 w-4 text-[#d0832b]" />
+            <span className="text-xs font-semibold text-[#6c4518]" data-testid="hero-animal-pill-text">All Animal Care: Cats • Dogs • Birds</span>
           </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-3" data-testid="hero-cta-group">
-            <a href="#location" data-testid="hero-visit-store-link">
+            <a href="#contact" data-testid="hero-visit-store-link">
               <Button className="rounded-full bg-[#161616] px-6 text-white hover:bg-[#2d2d2d]" data-testid="hero-visit-store-button">
                 Visit Our Store
               </Button>
             </a>
-            <a href="tel:+966595227853" data-testid="hero-call-link">
+            <a href="https://www.google.com/maps/search/?api=1&query=Umar+Ibn+Abdul+Aziz+Branch+Rd+Az+Zahra+Riyadh" target="_blank" rel="noreferrer" data-testid="hero-directions-link">
               <Button variant="outline" className="rounded-full border-[#161616]/20 bg-[#fffaf0] px-6 hover:bg-[#f8ecd8]" data-testid="hero-call-button">
-                Call Us
+                Get Directions
               </Button>
             </a>
           </div>
         </div>
 
         <div className="slide-fade-up-delay" data-testid="hero-image-wrapper">
-          <div className="relative overflow-hidden rounded-[2rem] border border-black/10 bg-white p-3 shadow-xl" data-testid="hero-image-card">
-            <img
-              src={heroImage}
-              alt="Premium cats at Cat House"
-              className="aspect-[4/5] w-full rounded-[1.5rem] object-cover object-center"
-              data-testid="hero-image"
-              loading="eager"
-              fetchPriority="high"
-              decoding="async"
-            />
+          <div className="grid grid-cols-2 gap-3" data-testid="hero-image-grid">
+            <div className="overflow-hidden rounded-3xl border border-black/10 bg-white p-2 shadow-lg" data-testid="hero-cat-image-card">
+              <img src="https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/n9ii2f6p_Screenshot%202026-03-09%20052359.png" alt="Happy cats at Cat House" className="aspect-square w-full rounded-2xl object-cover" data-testid="hero-cat-image" loading="eager" fetchPriority="high" decoding="async" />
+            </div>
+            <div className="overflow-hidden rounded-3xl border border-black/10 bg-white p-2 shadow-lg" data-testid="hero-dog-image-card">
+              <img src="https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/ndov26ka_Screenshot%202026-03-09%20052544.png" alt="Dog care and products" className="aspect-square w-full rounded-2xl object-cover" data-testid="hero-dog-image" loading="eager" decoding="async" />
+            </div>
+            <div className="col-span-2 overflow-hidden rounded-3xl border border-black/10 bg-white p-2 shadow-lg" data-testid="hero-bird-image-card">
+              <img src="https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/6wc4tdc9_Screenshot%202026-03-09%20052418.png" alt="Bird care section at store" className="aspect-[2/1] w-full rounded-2xl object-cover" data-testid="hero-bird-image" loading="lazy" decoding="async" />
+            </div>
           </div>
         </div>
       </section>
@@ -251,12 +208,11 @@ export default function CatHousePage() {
         <div className="rounded-[2rem] border border-black/10 bg-white/80 p-8 shadow-sm lg:p-12" data-testid="about-card">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#a27125]" data-testid="about-kicker">About Cat House</p>
           <h2 className="mt-3 text-base font-medium text-[#2f2f2f] md:text-lg" data-testid="about-title">
-            A trusted care center for cats, dogs, and birds in Riyadh.
+            A trusted local pet store for caring owners.
           </h2>
           <p className="mt-4 max-w-4xl text-sm text-[#4c4c4c] md:text-base" data-testid="about-description">
-            At Cat House (منزل القط), we combine passion with expert care for Cats, Dogs, and Birds. Our knowledgeable team helps every customer with
-            companions, grooming, and daily essentials in a clean and welcoming environment. With a 4.8-star customer rating, families across Riyadh trust
-            us for quality, professionalism, and kindness.
+            Cat House is a trusted local pet store providing high-quality products and caring services for cats, dogs, and birds. From clean pet bath support
+            to daily essentials, we make pet care easy, professional, and friendly for every family in Riyadh.
           </p>
         </div>
       </section>
@@ -264,9 +220,9 @@ export default function CatHousePage() {
       <section id="services" className="defer-render mx-auto w-[92%] max-w-7xl py-10 lg:py-14" data-testid="services-section">
         <div className="mb-7" data-testid="services-header">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#a27125]" data-testid="services-kicker">Services</p>
-          <h2 className="mt-2 text-base font-medium md:text-lg" data-testid="services-title">Complete care for Cats, Dogs, and Birds in one premium store.</h2>
+          <h2 className="mt-2 text-base font-medium md:text-lg" data-testid="services-title">Professional services designed for healthy and happy pets.</h2>
         </div>
-        <div className="grid gap-5 md:grid-cols-2" data-testid="services-grid">
+        <div className="grid gap-5 md:grid-cols-3" data-testid="services-grid">
           {serviceItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -288,34 +244,54 @@ export default function CatHousePage() {
         </div>
       </section>
 
-      <section id="reviews" className="defer-render mx-auto w-[92%] max-w-7xl py-10 lg:py-14" data-testid="reviews-section">
-        <div className="mb-7 flex flex-wrap items-center justify-between gap-3" data-testid="reviews-header">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#a27125]" data-testid="reviews-kicker">Customer Reviews</p>
-            <h2 className="mt-2 text-base font-medium md:text-lg" data-testid="reviews-title">Loved by cat owners across Riyadh.</h2>
-          </div>
-          <div className="rounded-full bg-[#1f1f1f] px-4 py-2 text-sm font-bold text-white" data-testid="reviews-rating-badge">4.8 / 5 ⭐</div>
+      <section id="products" className="defer-render mx-auto w-[92%] max-w-7xl py-10 lg:py-14" data-testid="products-section">
+        <div className="mb-7" data-testid="products-header">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#a27125]" data-testid="products-kicker">Products</p>
+          <h2 className="mt-2 text-base font-medium md:text-lg" data-testid="products-title">Top categories for everyday pet care.</h2>
         </div>
-        <div className="grid gap-4 md:grid-cols-3" data-testid="reviews-grid">
-          {testimonials.map((review, index) => (
-            <Card key={review} className="rounded-3xl border-black/10 bg-white/85" data-testid={`review-card-${index + 1}`}>
-              <CardContent className="pt-6">
-                <p className="text-sm text-[#333] md:text-base" data-testid={`review-text-${index + 1}`}>
-                  “{review}”
-                </p>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-testid="products-grid">
+          {productItems.map((item, index) => (
+            <Card key={item.title} className="overflow-hidden rounded-3xl border-black/10 bg-white/90" data-testid={`product-card-${index + 1}`}>
+              <div className="overflow-hidden" data-testid={`product-image-wrap-${index + 1}`}>
+                <img src={item.image} alt={item.title} className="aspect-[4/3] w-full object-cover transition-transform duration-300 hover:scale-105" data-testid={`product-image-${index + 1}`} loading={index < 2 ? "eager" : "lazy"} decoding="async" />
+              </div>
+              <CardContent className="pt-4">
+                <p className="font-semibold" data-testid={`product-title-${index + 1}`}>{item.title}</p>
               </CardContent>
             </Card>
           ))}
         </div>
       </section>
 
+      <section id="why-choose-us" className="defer-render mx-auto w-[92%] max-w-7xl py-10 lg:py-14" data-testid="why-choose-section">
+        <div className="mb-7" data-testid="why-choose-header">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#a27125]" data-testid="why-choose-kicker">Why Choose Us</p>
+          <h2 className="mt-2 text-base font-medium md:text-lg" data-testid="why-choose-title">Professional care with a warm neighborhood experience.</h2>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2" data-testid="why-choose-grid">
+          {whyChooseUs.map((point) => {
+            const Icon = point.icon;
+            return (
+              <Card key={point.title} className="rounded-3xl border-black/10 bg-white/90" data-testid={point.testId}>
+                <CardContent className="flex items-center gap-3 pt-6">
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#f8ead6] text-[#b16d1f]" data-testid={`${point.testId}-icon`}>
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <p className="font-semibold" data-testid={`${point.testId}-text`}>{point.title}</p>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </section>
+
       <section id="gallery" className="defer-render mx-auto w-[92%] max-w-7xl py-10 lg:py-14" data-testid="gallery-section">
         <div className="mb-7" data-testid="gallery-header">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#a27125]" data-testid="gallery-kicker">Gallery</p>
-          <h2 className="mt-2 text-base font-medium md:text-lg" data-testid="gallery-title">Cats, dogs, birds, grooming moments, and quality products.</h2>
+          <h2 className="mt-2 text-base font-medium md:text-lg" data-testid="gallery-title">Pets, toys, food, and store interior from Cat House.</h2>
         </div>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4" data-testid="gallery-grid">
-          {galleryImages.map((imageUrl, index) => (
+          {uploadedImages.map((imageUrl, index) => (
             <div key={`${imageUrl}-${index}`} className="group overflow-hidden rounded-2xl border border-black/10 bg-white" data-testid={`gallery-item-${index + 1}`}>
               <img
                 src={imageUrl}
@@ -330,11 +306,11 @@ export default function CatHousePage() {
         </div>
       </section>
 
-      <section id="location" className="defer-render mx-auto w-[92%] max-w-7xl py-10 lg:py-14" data-testid="location-section">
+      <section id="contact" className="defer-render mx-auto w-[92%] max-w-7xl pb-16 pt-10 lg:pt-14" data-testid="contact-section">
         <div className="grid gap-5 lg:grid-cols-[1fr_1.2fr]" data-testid="location-layout">
           <Card className="rounded-3xl border-black/10 bg-white/90" data-testid="location-info-card">
             <CardHeader>
-              <CardTitle className="text-2xl" data-testid="location-card-title">Visit Cat House</CardTitle>
+              <CardTitle className="text-2xl" data-testid="location-card-title">Contact Cat House</CardTitle>
               <CardDescription className="text-sm md:text-base" data-testid="location-card-description">
                 Umar Ibn Abdul Aziz Branch Rd, Az Zahra, Riyadh 12812, Saudi Arabia
               </CardDescription>
@@ -342,6 +318,7 @@ export default function CatHousePage() {
             <CardContent className="space-y-3">
               <p className="flex items-center gap-2 text-sm md:text-base" data-testid="location-phone-text"><Phone className="h-4 w-4" /> +966 59 522 7853</p>
               <p className="flex items-start gap-2 text-sm md:text-base" data-testid="location-address-text"><MapPin className="mt-1 h-4 w-4" /> Az Zahra District, Riyadh</p>
+              <p className="text-sm md:text-base" data-testid="location-hours-text">Opening Hours: Daily 10:00 AM - 11:00 PM</p>
               <div className="flex flex-wrap gap-2 pt-2" data-testid="location-action-buttons">
                 <a
                   href="https://www.google.com/maps/search/?api=1&query=Umar+Ibn+Abdul+Aziz+Branch+Rd+Az+Zahra+Riyadh"
@@ -353,6 +330,9 @@ export default function CatHousePage() {
                 </a>
                 <a href="tel:+966595227853" data-testid="call-store-link">
                   <Button variant="outline" className="rounded-full border-black/15" data-testid="call-store-button">Call Store</Button>
+                </a>
+                <a href="https://wa.me/966595227853" target="_blank" rel="noreferrer" data-testid="contact-whatsapp-link">
+                  <Button className="rounded-full bg-[#d77d1f] text-white hover:bg-[#bc6510]" data-testid="contact-whatsapp-button">WhatsApp</Button>
                 </a>
               </div>
             </CardContent>
@@ -368,72 +348,6 @@ export default function CatHousePage() {
               data-testid="google-map-embed"
             />
           </div>
-        </div>
-      </section>
-
-      <section id="contact" className="defer-render mx-auto w-[92%] max-w-7xl pb-16 pt-10 lg:pt-14" data-testid="contact-section">
-        <div className="grid gap-5 lg:grid-cols-[1fr_1fr]" data-testid="contact-layout">
-          <Card className="rounded-3xl border-black/10 bg-white/90" data-testid="contact-details-card">
-            <CardHeader>
-              <CardTitle className="text-2xl" data-testid="contact-details-title">Contact Cat House</CardTitle>
-              <CardDescription className="text-sm md:text-base" data-testid="contact-details-description">
-                Reach us by phone, visit our store, or send a quick message below.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3 text-sm md:text-base">
-              <p data-testid="contact-details-phone">Phone: +966 59 522 7853</p>
-              <p data-testid="contact-details-location">Location: Umar Ibn Abdul Aziz Branch Rd, Az Zahra, Riyadh</p>
-              <p data-testid="contact-details-hours">Business Hours: Daily 10:00 AM - 11:00 PM</p>
-            </CardContent>
-          </Card>
-
-          <Card className="rounded-3xl border-black/10 bg-white/90" data-testid="contact-form-card">
-            <CardHeader>
-              <CardTitle className="text-2xl" data-testid="contact-form-title">Send a Message</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4" data-testid="contact-form">
-                <div data-testid="contact-name-field-wrap">
-                  <Input
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Your name"
-                    className="h-11 rounded-xl"
-                    data-testid="contact-form-name-input"
-                  />
-                </div>
-                <div data-testid="contact-phone-field-wrap">
-                  <Input
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="Phone number"
-                    className="h-11 rounded-xl"
-                    data-testid="contact-form-phone-input"
-                  />
-                </div>
-                <div data-testid="contact-message-field-wrap">
-                  <Textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Tell us what you need"
-                    className="min-h-28 rounded-xl"
-                    data-testid="contact-form-message-input"
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full rounded-xl bg-[#161616] py-6 text-white hover:bg-[#2f2f2f] disabled:cursor-not-allowed disabled:opacity-60"
-                  data-testid="contact-form-submit-button"
-                >
-                  {isSubmitting ? "Sending..." : "Submit Inquiry"}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
         </div>
       </section>
     </main>
