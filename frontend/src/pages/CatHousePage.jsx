@@ -40,11 +40,11 @@ const serviceItems = [
 ];
 
 const productItems = [
+  { title: "Pet Toys", image: "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/ojc51dj4_Screenshot%202026-03-09%20052458.png" },
+  { title: "Cat Food", image: "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/5ouwdpj8_Screenshot%202026-03-09%20052551.png" },
   { title: "Dog Food", image: "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/ndov26ka_Screenshot%202026-03-09%20052544.png" },
-  { title: "Cat Food", image: "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/n9ii2f6p_Screenshot%202026-03-09%20052359.png" },
   { title: "Bird Supplies", image: "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/6wc4tdc9_Screenshot%202026-03-09%20052418.png" },
   { title: "Pet Litter", image: "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/pwn1g019_Screenshot%202026-03-09%20052605.png" },
-  { title: "Pet Toys", image: "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/cxrex4eg_Screenshot%202026-03-09%20052533.png" },
   { title: "Pet Equipment", image: "https://customer-assets.emergentagent.com/job_paws-premium-pets/artifacts/2lvqgpqv_Screenshot%202026-03-09%20052352.png" },
 ];
 
