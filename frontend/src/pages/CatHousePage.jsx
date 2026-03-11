@@ -56,12 +56,12 @@ const whyChooseUs = [
 ];
 
 const navItems = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Products", href: "#products" },
-  { label: "Why Choose Us", href: "#why-choose-us" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "#about", testId: "about" },
+  { label: "Services", href: "#services", testId: "services" },
+  { label: "Products", href: "#products", testId: "products" },
+  { label: "Why Choose Us", href: "#why-choose-us", testId: "why-choose-us" },
+  { label: "Gallery", href: "#gallery", testId: "gallery" },
+  { label: "Contact", href: "#contact", testId: "contact" },
 ];
 
 export default function CatHousePage() {
@@ -103,7 +103,7 @@ export default function CatHousePage() {
         href="https://wa.me/966595227853"
         target="_blank"
         rel="noreferrer"
-        className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full bg-[#1f1f1f] px-5 py-3 text-sm font-semibold text-white shadow-xl hover:-translate-y-1 hover:bg-[#2d2d2d]"
+        className="fixed bottom-20 right-5 z-50 inline-flex items-center gap-2 rounded-full bg-[#1f1f1f] px-5 py-3 text-sm font-semibold text-white shadow-xl hover:-translate-y-1 hover:bg-[#2d2d2d] md:bottom-5"
         data-testid="floating-whatsapp-button"
       >
         <MessageCircle className="h-4 w-4" /> WhatsApp
@@ -128,7 +128,7 @@ export default function CatHousePage() {
 
           <nav className="hidden items-center gap-5 lg:flex" data-testid="desktop-navigation-links">
             {navItems.map((item) => (
-              <a key={item.href} href={item.href} className="text-sm font-semibold hover:text-[#a27125]" data-testid={`nav-link-${item.label.toLowerCase()}`}>
+              <a key={item.href} href={item.href} className="text-sm font-semibold hover:text-[#a27125]" data-testid={`nav-link-${item.testId}`}>
                 {item.label}
               </a>
             ))}
@@ -146,7 +146,7 @@ export default function CatHousePage() {
             </summary>
             <div className="absolute right-4 mt-2 flex min-w-44 flex-col rounded-xl border bg-white p-3 shadow-lg" data-testid="mobile-menu-list">
               {navItems.map((item) => (
-                <a key={item.href} href={item.href} className="rounded-md px-2 py-2 text-sm font-semibold hover:bg-[#f4ebdd]" data-testid={`mobile-nav-link-${item.label.toLowerCase()}`}>
+                <a key={item.href} href={item.href} className="rounded-md px-2 py-2 text-sm font-semibold hover:bg-[#f4ebdd]" data-testid={`mobile-nav-link-${item.testId}`}>
                   {item.label}
                 </a>
               ))}

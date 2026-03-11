@@ -10,6 +10,8 @@ Build a modern, premium, visually stunning main website for Cat House in Riyadh 
 - Contact form behavior: save inquiries in backend database
 - Additional request: continue and optimize for fast loading
 - Latest content request: explicitly mention all animal care availability for Cats, Dogs, and Birds
+- Latest redesign request: modern professional orange-forward site with sections (Hero/About/Services/Products/Why Choose Us/Gallery/Contact)
+- Contact section preference in latest iteration: no contact form, buttons only
 
 ## Architecture Decisions
 - Frontend: React + existing Shadcn UI components + responsive single-page sections with anchor navigation
@@ -19,15 +21,16 @@ Build a modern, premium, visually stunning main website for Cat House in Riyadh 
 - Performance: eager/lazy image loading strategy, preconnect hints, content-visibility for below-the-fold sections
 
 ## Implemented
-- Full Cat House website with sections: Hero, About, Services, Reviews, Gallery, Location (Google Map), Contact
+- Full Cat House website redesign with sections: Hero, About, Services, Products, Why Choose Us, Gallery, Contact
 - Sticky navigation with desktop links and mobile menu
-- CTA actions: Visit store, Call store, Get directions, floating WhatsApp button
-- User logo and uploaded photos integrated into hero/gallery
-- Updated website messaging and services to clearly state complete care for Cats, Dogs, and Birds
-- Contact form integrated to backend persistence with success/failure toasts
+- CTA actions: Visit store, Get directions, Call store, floating + section WhatsApp buttons
+- User logo and all uploaded real photos integrated across hero/products/gallery
+- Updated messaging and services to clearly state complete care for Cats, Dogs, and Birds
+- Backend contact inquiry models + endpoints remain available from previous iteration (not exposed in latest UI per current preference)
 - Backend contact inquiry models + endpoints with Mongo-safe responses (no `_id` leakage)
 - Styling system updated for warm premium aesthetic, smooth motion, and responsive layout
 - Added comprehensive `data-testid` attributes for interactive and critical UI elements
+- Improved nav test-id stability via slug IDs and adjusted WhatsApp floating position for overlap safety on small screens
 
 ## Validation Completed
 - Frontend screenshots captured on preview URL across key flows
